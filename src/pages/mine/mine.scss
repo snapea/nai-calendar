@@ -1,0 +1,63 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    padding: 0 25px;
+
+    display: flex;
+    flex-direction: row;
+  }
+
+  .calendar-header {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    font-weight: bolder;
+    color: #999;
+
+    .calendar-header-title {
+      width: 14.2%;
+      text-align: center;
+    }
+  }
+  .calendar-body {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    flex-wrap: wrap;
+
+    .calendar-body-ele {
+      width: 14.2%;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 24px;
+
+      .solarText{
+        font-size: 20px;
+      }
+    }
+    // index % 7 === 5 || index % 7 === 6
+    // ? "calendar-body-ele vacation-active"
+    // : "calendar-body-ele"
+  }
+}
+.vacation-active{
+  color: #e1251b;
+  opacity: .6;
+  font-weight: bolder;
+}
+.taday{
+  color: #e1251b;
+  opacity: .6;
+  font-weight: bolder;
+  opacity: 1;
+}
+.swiper{
+  // height:auto !important;
+  height: 600px;
+
+  // .swiper-item{
+  //   height:auto
+  // }
+}
