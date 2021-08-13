@@ -1,0 +1,191 @@
+<!--
+ * @Author: wenzhenjin
+ * @Date: 2021-08-09 18:36:07
+ * @LastEditors: wenzhenjin
+ * @LastEditTime: 2021-08-13 12:52:34
+ * @FilePath: /taro-mini/demo.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .box {
+        width: 280px;
+        height: 360px;
+        margin: 50px auto;
+        background-color: black;
+        color: aliceblue;
+        line-height: 40px;
+      }
+
+      .header {
+        height: 40px;
+        color: aliceblue;
+        line-height: 40px;
+      }
+
+      .header span {
+        float: left;
+        text-align: center;
+        margin-top: 10px;
+        line-height: 40px;
+      }
+
+      .prev,
+      .next {
+        width: 20%;
+        line-height: 40px;
+        cursor: pointer;
+      }
+
+      .current {
+        width: 60%;
+        line-height: 40px;
+        color: red;
+      }
+
+      .week li {
+        width: 40px;
+        text-align: center;
+        float: left;
+        line-height: 40px;
+      }
+
+      .content li {
+        width: 40px;
+        text-align: center;
+        float: left;
+        line-height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="header">
+        <span class="prev">上</span>
+        <span class="current"></span>
+        <span class="next">下</span>
+      </div>
+      <ul class="week">
+        <li>日</li>
+        <li>一</li>
+        <li>二</li>
+        <li>三</li>
+        <li>四</li>
+        <li>五</li>
+        <li>六</li>
+      </ul>
+      <ul class="content"></ul>
+    </div>
+  </body>
+  <script>
+    //思路：最重要的就是每月的第零天就是上月的最大天数，计算出本月第一个星期之后上月剩下的日子填充进来
+    var oCon = document.querySelector(".content");
+    // shangYue(date)
+    function shangYue(date) {
+      var date = new Date(date);
+      //获取本月第一天星期几
+      date.setDate(1);
+      var week = date.getDay();
+      console.log(week);
+      //获取上月有多少天
+      date.setDate(0);
+      var maxDay = date.getDate();
+      //设定一个空数组接受上个月剩下到这个月的值
+      var list = [];
+      //用最大上月的天数减去本月的星期几加一就是上个月显示在本月的日期
+      for (var i = maxDay - week + 1; i <= maxDay; i++) {
+        list.push(i);
+        console.log(list);
+      }
+      return list;
+    }
+    //获取本月的天数
+    function benYue(date) {
+      var date = new Date(date);
+      //设置月份加一
+      date.setMonth(date.getMonth() + 1);
+      //设置天数为零
+      date.setDate(0);
+      var maxDay = date.getDate();
+      //用新数组接收数据
+      var list = [];
+      for (var i = 1; i <= maxDay; i++) {
+        list.push(i);
+        console.log(list);
+      }
+      return list;
+    }
+    //下个月的天数
+    function xaiyue(shangYueTian, benyueTian) {
+      // var date = new Date(date)
+      var list = [];
+      for (var i = 1; i <= 42 - shangYueTian - benyueTian; i++) {
+        list.push(i);
+      }
+      return list;
+    }
+
+    //渲染进页面
+    function xuanRan(date) {
+      var date = new Date(date);
+      var arr1 = shangYue(date);
+      var arr2 = benYue(date);
+      var arr3 = xaiyue(arr1.length, arr2.length);
+      var res = "";
+      //res接收数据
+      for (var i = 0; i < arr1.length; i++) {
+        //用字符串模板添加样式
+        res += `<li style = "color:red;"> ${arr1[i]} </li>`;
+      }
+      for (var i = 0; i < arr2.length; i++) {
+        res += `<li> ${arr2[i]} </li>`;
+      }
+      for (var i = 0; i < arr3.length; i++) {
+        //用字符串模板添加样式
+        res += `<li style = "color:red;"> ${arr3[i]} </li>`;
+      }
+      //写进页面
+      oCon.innerHTML = res;
+    }
+
+    //拿对象
+    var oPrev = document.querySelector(".prev");
+    var oNext = document.querySelector(".next");
+    var oCurrent = document.querySelector(".current");
+    //获取年月
+    var date = new Date();
+    var nian = date.getFullYear();
+    var yue = date.getMonth() + 1;
+    oCurrent.innerHTML = nian + "年" + yue + "月";
+    xuanRan(date);
+    //前翻页点击事件
+    oPrev.onclick = function() {
+      //月份减一
+      date.setMonth(date.getMonth() - 1);
+      var nian = date.getFullYear();
+      var yue = date.getMonth() + 1;
+      oCurrent.innerHTML = nian + "年" + yue + "月";
+      xuanRan(date);
+    };
+    //后翻页点击事件
+    oNext.onclick = function() {
+      //月份加一
+      date.setMonth(date.getMonth() + 1);
+      var nian = date.getFullYear();
+      var yue = date.getMonth() + 1;
+      oCurrent.innerHTML = nian + "年" + yue + "月";
+      xuanRan(date);
+    };
+  </script>
+</html>
