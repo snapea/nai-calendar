@@ -1,191 +1,217 @@
-<!--
- * @Author: wenzhenjin
- * @Date: 2021-08-09 18:36:07
- * @LastEditors: wenzhenjin
- * @LastEditTime: 2021-08-13 12:52:34
- * @FilePath: /taro-mini/demo.html
--->
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				border: 0;
+			}
+			.all{
+				width: 500px;
+				height: 200px;
+				padding: 7px;
+				border: 1px solid #ccc;
+				margin: 100px auto;
+				position: relative;
+			}
+			.screen{
+				width: 500px;
+				height: 200px;
+				overflow: hidden;
+				position: relative;
+			}
+			.screen li{
+				width: 500px;
+				height: 200px;
+				overflow: hidden;
+				float: left;
+			}
+			.screen ul{
+				position: absolute;
+				left: 0;
+				top: 0px;
+				width: 3000px;
+			}
+			.all ol{
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+				line-height: 20px;
+				text-align: center;
+			}
+			.all ol li{
+				float: left;
+				width: 20px;
+				height: 20px;
+				background: #fff;
+				border: 1px solid #ccc;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+			.all ol li.current{
+				background: yellow;
+			}
+			#arr{
+				display: none;
+				z-index: 1000;
+			}
+			#arr span{
+				width: 40px;
+				height: 40px;
+				position: absolute;
+				left: 5px;
+				top:50%;
+				margin-top: -20px;
+				background: #000;
+				cursor: pointer;
+				line-height: 40px;
+				text-align: center;
+				font-weight: bold;
+				font-family: "黑体";
+				font-size: 30px;
+				color:#fff;
+				opacity:0.3;
+				border: 1px solid #fff;
+			}
+			#arr #right{
+				right: 5px;
+				left: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="all" id="box">
+			<div class="screen">
+				<ul>
+					<li><img src="../img/lunbo1.jpg" width="500" height="200"/></li>
+					<li><img src="../img/lunbo2.jpg" width="500" height="200"/></li>
+					<li><img src="../img/lunbo3.jpg" width="500" height="200"/></li>
+					<li><img src="../img/lunbo4.jpg" width="500" height="200"/></li>
+					<li><img src="../img/lunbo5.jpg" width="500" height="200"/></li>
+				</ul>
+				<ol>
+				</ol>
+			</div>
+			<div id="arr"><span id="left">&lt;</span><span id="right">&gt;</span></div>
+		</div>
+		<script>
+			var box = document.getElementById("box");
+			var arr = document.getElementById("arr");
+			var screen = box.children[0];
+			var UL = screen.children[0];
+			var OL = screen.children[1];
+			var count = UL.children.length;
+			var arr = document.getElementById("arr");
+			var arrLeft = document.getElementById("left");
+			var arrRight = document.getElementById("right");
+			var imgWidth = screen.offsetWidth;
+			for (var i = 0;i < count;i++){
+				var li = document.createElement("li");
+				OL.appendChild(li);
+				setinnerText(li,i + 1);
+				li.onclick = liClick;
+				//让当前li记录它的索引
+				//设置标签的自定义属性
+				//标签的属性在DOM获取的时候是字符串
+				li.setAttribute("index",i);//两个参数,属性名,值
+				if(i == 0){
+					li.className = "current";
+				}
+			}
 
-      .box {
-        width: 280px;
-        height: 360px;
-        margin: 50px auto;
-        background-color: black;
-        color: aliceblue;
-        line-height: 40px;
-      }
+			function liClick(){
+				for(var i = 0;i < OL.children.length;i++){
+					var li = OL.children[i];
+					li.className = "";
+				}
+				this.className = "current";
+				//获取自定义属性
+				var LIindex = parseInt(this.getAttribute("index"));
+				animate(UL,-LIindex * imgWidth);
+				index = LIindex;//让局部的索引和全局的相等,不然造成BUG
+			}
+			box.onmouseenter = function(){
+				clearInterval(timeid);
+				arr.style.display = "block";
 
-      .header {
-        height: 40px;
-        color: aliceblue;
-        line-height: 40px;
-      }
+			}
+			box.onmouseleave = function(){
+				arr.style.display = "none";
+				timeid = setInterval(function(){
+				arrRight.click();
+			},2000);
+			}
+			//处理兼容性
+			function setinnerText(element,content) {
+				if(typeof element.innerText === "string"){
+					element.innerText = content;
+				}else{
+					element.textContent = content;
+				}
+			}
+			//动画函数
+			function animate(element,target) {
+				//判断,保证页面上只有一个执行动画
+				if(element.timerId){
+					clearInterval(element.timerId);
+					timerId = null;
+				}
+				element.timerId = setInterval(function(){
+					var step = 10;
+					var current = element.offsetLeft;
+					//判断如果当前位置>目标位置,此时的step要小于0
+					if(current > target){
+						step = -Math.abs(step);
+					}
+					if (Math.abs(current - target) < Math.abs(step)){
+						clearInterval(element.timerId);
+						element.style.left = target + "px";
+						return;
+					}
+					current += step;
+					element.style.left = current + "px";
+				},5);
+			}
 
-      .header span {
-        float: left;
-        text-align: center;
-        margin-top: 10px;
-        line-height: 40px;
-      }
-
-      .prev,
-      .next {
-        width: 20%;
-        line-height: 40px;
-        cursor: pointer;
-      }
-
-      .current {
-        width: 60%;
-        line-height: 40px;
-        color: red;
-      }
-
-      .week li {
-        width: 40px;
-        text-align: center;
-        float: left;
-        line-height: 40px;
-      }
-
-      .content li {
-        width: 40px;
-        text-align: center;
-        float: left;
-        line-height: 40px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <div class="header">
-        <span class="prev">上</span>
-        <span class="current"></span>
-        <span class="next">下</span>
-      </div>
-      <ul class="week">
-        <li>日</li>
-        <li>一</li>
-        <li>二</li>
-        <li>三</li>
-        <li>四</li>
-        <li>五</li>
-        <li>六</li>
-      </ul>
-      <ul class="content"></ul>
-    </div>
-  </body>
-  <script>
-    //思路：最重要的就是每月的第零天就是上月的最大天数，计算出本月第一个星期之后上月剩下的日子填充进来
-    var oCon = document.querySelector(".content");
-    // shangYue(date)
-    function shangYue(date) {
-      var date = new Date(date);
-      //获取本月第一天星期几
-      date.setDate(1);
-      var week = date.getDay();
-      console.log(week);
-      //获取上月有多少天
-      date.setDate(0);
-      var maxDay = date.getDate();
-      //设定一个空数组接受上个月剩下到这个月的值
-      var list = [];
-      //用最大上月的天数减去本月的星期几加一就是上个月显示在本月的日期
-      for (var i = maxDay - week + 1; i <= maxDay; i++) {
-        list.push(i);
-        console.log(list);
-      }
-      return list;
-    }
-    //获取本月的天数
-    function benYue(date) {
-      var date = new Date(date);
-      //设置月份加一
-      date.setMonth(date.getMonth() + 1);
-      //设置天数为零
-      date.setDate(0);
-      var maxDay = date.getDate();
-      //用新数组接收数据
-      var list = [];
-      for (var i = 1; i <= maxDay; i++) {
-        list.push(i);
-        console.log(list);
-      }
-      return list;
-    }
-    //下个月的天数
-    function xaiyue(shangYueTian, benyueTian) {
-      // var date = new Date(date)
-      var list = [];
-      for (var i = 1; i <= 42 - shangYueTian - benyueTian; i++) {
-        list.push(i);
-      }
-      return list;
-    }
-
-    //渲染进页面
-    function xuanRan(date) {
-      var date = new Date(date);
-      var arr1 = shangYue(date);
-      var arr2 = benYue(date);
-      var arr3 = xaiyue(arr1.length, arr2.length);
-      var res = "";
-      //res接收数据
-      for (var i = 0; i < arr1.length; i++) {
-        //用字符串模板添加样式
-        res += `<li style = "color:red;"> ${arr1[i]} </li>`;
-      }
-      for (var i = 0; i < arr2.length; i++) {
-        res += `<li> ${arr2[i]} </li>`;
-      }
-      for (var i = 0; i < arr3.length; i++) {
-        //用字符串模板添加样式
-        res += `<li style = "color:red;"> ${arr3[i]} </li>`;
-      }
-      //写进页面
-      oCon.innerHTML = res;
-    }
-
-    //拿对象
-    var oPrev = document.querySelector(".prev");
-    var oNext = document.querySelector(".next");
-    var oCurrent = document.querySelector(".current");
-    //获取年月
-    var date = new Date();
-    var nian = date.getFullYear();
-    var yue = date.getMonth() + 1;
-    oCurrent.innerHTML = nian + "年" + yue + "月";
-    xuanRan(date);
-    //前翻页点击事件
-    oPrev.onclick = function() {
-      //月份减一
-      date.setMonth(date.getMonth() - 1);
-      var nian = date.getFullYear();
-      var yue = date.getMonth() + 1;
-      oCurrent.innerHTML = nian + "年" + yue + "月";
-      xuanRan(date);
-    };
-    //后翻页点击事件
-    oNext.onclick = function() {
-      //月份加一
-      date.setMonth(date.getMonth() + 1);
-      var nian = date.getFullYear();
-      var yue = date.getMonth() + 1;
-      oCurrent.innerHTML = nian + "年" + yue + "月";
-      xuanRan(date);
-    };
-  </script>
+			var index = 0;
+			arrRight.onclick = function(){
+				//判断是否是克隆的第一张图片,如果是,修改ul的坐标显示真正的第一张图片
+				if(index === count){
+					UL.style.left = "0px";
+					index = 0;
+				}
+				index++;
+				if(index < count){
+					OL.children[index].click();
+				}else{
+					animate(UL,-index * imgWidth);
+					for (var i = 0;i < OL.children.length;i++){
+						var li = OL.children[i];
+						li.className = "";
+					}
+				    OL.children[0].className = "current";
+				}
+			}
+			arrLeft.onclick = function(){
+				if(index === 0){
+					index = count;
+					UL.style.left = -index * imgWidth + "px";
+				}
+				index--;
+				OL.children[index].click();
+			}
+			//实现无缝衔接
+			var fristLI = UL.children[0];
+			var cloneLI = fristLI.cloneNode(true);
+			UL.appendChild(cloneLI);
+			//自动轮播
+			var timeid =  setInterval(function(){
+				arrRight.click();
+			},2000);
+		</script>
+	</body>
 </html>
