@@ -1,107 +1,107 @@
 .cost-container {
-    padding: 0 38px;
+  padding: 0 38px;
 }
 
 .date-title {
-    font-size: 40px;
-    font-weight: bold;
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .date-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .date-left {
+    font-size: 40px;
+    font-weight: bolder;
+  }
 
-    .date-left {
-        font-size: 40px;
-        font-weight: bolder;
-    }
-
-    .title-right {
-        font-size: 36px;
-        color: aqua;
-    }
-
+  .title-right {
+    font-size: 36px;
+    color: aqua;
+  }
 }
 
-
 .swiper-cotainer {
-    margin-top: 30px;
-    background-color: #999;
-    padding: 20px 30px;
-    height: 280px;
-    border-radius: 5px;
+  margin-top: 30px;
+  background-color: #999;
+  padding: 20px 30px;
+  height: 280px;
+  border-radius: 5px;
 
-    .swiper-title {
-        font-size: 36px;
-    }
+  .swiper-title {
+    font-size: 36px;
+  }
 
-    .swiper-cash {
-        font-weight: bolder;
-        font-size: 96px;
-    }
+  .swiper-cash {
+    font-weight: bolder;
+    font-size: 96px;
+  }
 }
 
 .swiper-detail {
-    margin-top: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .swiper-list-item {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    font-size: 34px;
+  }
 
-    .swiper-list-item {
-        display: flex;
-        flex-direction: row;
-        font-size: 34px;
-    }
+  .swiper-detail-key {
+    color: aquamarine;
+    margin-right: 10px;
+  }
 
-    .swiper-detail-key {
-        color: aquamarine;
-        margin-right: 10px;
-    }
-
-    .swiper-detail-value {
-        color: bisque;
-        padding-right: 20px;
-    }
+  .swiper-detail-value {
+    color: bisque;
+    padding-right: 20px;
+  }
 }
 
 .center-content {
+  display: flex;
+  margin: 20px 0;
+  flex-direction: row;
+  font-size: 24px;
+  color: #999;
+  justify-content: space-between;
+  align-items: center;
+
+  .date-day {
     display: flex;
-    margin: 20px 0;
     flex-direction: row;
-    font-size: 24px;
-    color: #999;
-    justify-content: space-between;
-    align-items: center;
+  }
 
-    .date-day {
-        display: flex;
-        flex-direction: row;
-
-    }
-
-    .pay-notes {
-        display: flex;
-        flex-direction: row;
-    }
+  .pay-notes {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .cost-list {
-    padding: 20px 30px;
+  padding: 20px 30px;
+  display: flex;
+  background: #999;
+  border-radius: 5px;
+  flex-direction: column;
+
+  .cost-item {
     display: flex;
-    background: #999;
-    border-radius: 5px;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-    .cost-item {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .cost-item-left {
-        display: flex;
-    }
+  .cost-item-left {
+    display: flex;
+  }
 }
+
+// .image-test {
+//   background-color: aqua;
+// }
