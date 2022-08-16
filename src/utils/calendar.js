@@ -722,7 +722,7 @@ const  calendarUtil = {
    * @params {format: string} 连接符号
    * @return {calendarEles: array}
    */
-  export function getCalendarEles (date){
+  export const getCalendarEles = (date) => {
     const calendarEles = [];
     const tmpCalendar = []
     const y = getTimeFormat(new Date(date), "year")

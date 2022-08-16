@@ -7,6 +7,7 @@
  */
 export default {
   pages: [
+    'pages/cost/cost',
     'pages/index/index',
     'pages/mine/mine',
   ],

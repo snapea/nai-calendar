@@ -35,6 +35,7 @@ const Calendar = () => {
   const monthIndex = m;
 
   useEffect(() => {
+    console.log(123123)
     setCalendarEles(getCalendarEles(new Date()));
     setPreviousEles(
       getCalendarEles(new Date().setMonth(new Date().getMonth() - 1))
@@ -64,7 +65,7 @@ const Calendar = () => {
       </View>
       <View className="swiper-wrapper">
         <View className="calendar-body">
-          {calendarEles.map((item, index) => {
+          {calendarEles.map((item:any, index) => {
             return (
               // <View>1</View>
               <View
