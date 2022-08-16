@@ -1,4 +1,4 @@
 export default {
   navigationBarTitleText: '账本',
-  // navigationBarBackgroundColor: '#000000'
+  navigationBarBackgroundColor: '#f4f4f4'
 }

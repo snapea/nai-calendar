@@ -1,11 +1,63 @@
+// @font-face {
+//   font-family: PuHui;
+//   src: url('../../assets//fonts/font.woff');
+// }
+
 .cost-container {
-  padding: 0 38px;
+  padding: 0 30px;
+  background: #f4f4f4;
+  height: 100vh;
 }
 
-.date-title {
-  font-size: 40px;
-  font-weight: bold;
+
+.cost-big-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .cost-big-title-left {
+    font-size: 72px;
+    font-weight: 600;
+  }
+
+  .cost-big-title-right {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
+
+.search-content {
+  padding: 13px 25px;
+  margin: 20px 0 36px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #e5e5e5;
+  border-radius: 10px;
+
+  .search-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+
+
 
 .date-header {
   display: flex;
@@ -14,30 +66,59 @@
   align-items: center;
 
   .date-left {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: bolder;
   }
 
   .title-right {
-    font-size: 36px;
-    color: aqua;
+    font-size: 32px;
+    color: #3478f6;
   }
+}
+
+.date-title {
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .swiper-cotainer {
   margin-top: 30px;
-  background-color: #999;
-  padding: 20px 30px;
-  height: 280px;
-  border-radius: 5px;
+  background-color: #FFF;
+  padding: 20px 30px 0 30px;
+  // height: 280px;
+  border-radius: 10px;
+
+  .swiper-item-total {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .swiper-item-total-image {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 14px;
+      background-color: #e47f71;
+      border-radius: 50%;
+
+      image {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
 
   .swiper-title {
-    font-size: 36px;
+    color: #e06a5a;
+    font-size: 32px;
   }
 
   .swiper-cash {
-    font-weight: bolder;
-    font-size: 96px;
+    margin: 20px 0 28px 0;
+    font-weight: 600;
+    font-size: 82px;
   }
 }
 
@@ -50,26 +131,26 @@
   .swiper-list-item {
     display: flex;
     flex-direction: row;
-    font-size: 34px;
+    font-size: 30px;
   }
 
   .swiper-detail-key {
-    color: aquamarine;
+    color: #999999;
     margin-right: 10px;
   }
 
   .swiper-detail-value {
-    color: bisque;
+    color: #666666;
     padding-right: 20px;
   }
 }
 
 .center-content {
   display: flex;
-  margin: 20px 0;
+  margin: 40px 0 30px 0;
   flex-direction: row;
-  font-size: 24px;
-  color: #999;
+  font-size: 28px;
+  color: #999999;
   justify-content: space-between;
   align-items: center;
 
@@ -85,23 +166,69 @@
 }
 
 .cost-list {
-  padding: 20px 30px;
+  padding: 0 30px 20px 30px;
   display: flex;
-  background: #999;
-  border-radius: 5px;
+  background: #FFF;
+  border-radius: 10px;
   flex-direction: column;
 
   .cost-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 32px 0;
+    border-bottom: 2px solid #dedede;
   }
 
   .cost-item-left {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .cost-item-icon {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      margin-right: 20px;
+
+      image {
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 }
 
-// .image-test {
-//   background-color: aqua;
-// }
+.add-item {
+  width: 120px;
+  position: fixed;
+  height: 120px;
+  border-radius: 50%;
+  background-image: linear-gradient(to bottom right, #eaa95d, #f1c566);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  right: 30px;
+  bottom: 120px;
+
+  image {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+.mar-r-10 {
+  margin-right: 10px;
+}
+
+.bg-img-incoming {
+  background-image: linear-gradient(to bottom right, #70b879, #7fcda1);
+}
+
+.bg-img-pay {
+  background-image: linear-gradient(to bottom right, #e1715d, #e8916e);
+}
